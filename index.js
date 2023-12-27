@@ -47,7 +47,8 @@ app.post('/login', (req, res) => {
   }else if (userType === "admin" && registrationId==="lotib3333@gmail.com" && phoneNumber=="7501728816") {
     res.send("welcomeToAdminPanel");
   }else if(userType === "teacher"){
-    res.send("Welcome Sir"+registrationId);
+    query = `teacher?userId=${registrationId}&phoneNumber=${phoneNumber}`;
+    res.send(query)
   }else{
     res.send("invalid");
   }
