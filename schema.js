@@ -90,8 +90,11 @@ const paymentSchema = new Schema({
     type: Number,
     // required: true,
   },
-  // Add other payment details as needed
-});
+  paymentDate: {
+    type : Date,
+    default : Date.now
+  }
+ });
 
 
 // Create Payment model
@@ -102,3 +105,50 @@ const Student = model('Student', studentSchema);
 
 export {Student};
 export {Payment};
+
+
+//create teacher profile
+const teacherSchema = new Schema(
+  {
+    name:{type:String, requierd: true},
+    address:{type:String, requierd: true},
+    phoneNumber:{type:String, requierd: true},
+    whatsappNumber:{type:String},
+    userId:{unique:true,type:String},
+    qualification:{type:String},
+    teacherOf:{type:String},
+    experience:{type:String}
+  }
+);
+teacherSchema.pre('save', async function (next) {
+  if (!this.userId) {
+    this.userId = generateRandomString();
+  }
+  next();
+});
+
+const Teacher = model('Teacher',teacherSchema);
+export {Teacher};
+
+
+const noticeSchema = new Schema (
+  {
+    title:{type:String, requierd:true},
+    disc:{type:String,requierd:true},
+    url:{type:String}
+  }
+)
+
+const Notice = model('Notice',noticeSchema);
+export {Notice};
+
+//downloads
+const downloadSchema = new Schema (
+  {
+    title:{type:String, requierd:true},
+    url:{type:String, requierd:true}
+  }
+)
+
+const Download = model('Download',downloadSchema);
+export {Download};
